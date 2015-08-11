@@ -3,13 +3,15 @@
 <link rel="stylesheet" href="css/plugins/uploadimage/cropper.css"/>
 <script type="text/javascript" src="js/plugins/uploadimage/cropper.js"></script>
 </#macro>
-<#macro cropimage fieldName file cssClass synchronous supprimer=false typeImage="image/*" >
+<#macro cropimage fieldName file cssClass synchronous supprimer=false typeImage="image/*" cssBootsrap="col-xs-12 col-lg-12" >
 
 
 <!-- Content -->
 <div id="content_upload_image">
+
+    <!-- image ou bouton upload -->
     <div id="row1" class="row">
-        <div class="col-xs-8 col-md-16">
+        <div class="${cssBootsrap}">
 
             <!-- Bouton upload -->
             <label id="label${fieldName}" class="btn btn-primary btn-upload " for="inputImage${fieldName}" title="#i18n{uploadimage.model.title.upload}" <#if file !="" > style="display: none" </#if> >
@@ -28,9 +30,12 @@
             <input type="hidden" id="typeImage" name="typeImage">
 
         </div>
+    </div>
 
-        <div id="row2" class="row">
-            <div id="buttonOption${fieldName}" class="col-md-9 docs-buttons " <#if file =="" > style="display: none" </#if> >
+    <!-- Boutons -->
+    <div id="row2" class="row">
+        <div class="${cssBootsrap}">
+            <div id="buttonOption${fieldName}" class="docs-buttons " <#if file =="" > style="display: none" </#if> >
                 <div id="buttonOption" class="btn-group">
 
                     <button id="zoom_in" class="btn btn-primary" onClick="zoomIn('${fieldName}')" type="button" title="#i18n{uploadimage.model.title.zoom_in}">
@@ -102,20 +107,23 @@
                             </span>
                     </button>
                 </div>
-
-                <!-- Preview crop -->
-                <div id="row3" class="row">
-                    <input id="imagesrc${fieldName}" name="${fieldName}" type="hidden" value=""/>
-                    <button id="deleteButton${fieldName}" class="btn btn-default" onClick="deleteImage('${fieldName}')" type="button" title="#i18n{uploadimage.model.delete.button}"
-                            style="display:none">
-                        <span class="glyphicon glyphicon-remove-circle"></span>
-                        #i18n{uploadimage.model.delete.button}
-                    </button>
-                    <div style="max-width: 5px;" id="canvasImage${fieldName}"></div>
-                </div>
             </div>
         </div>
     </div>
+
+    <!-- Preview crop -->
+    <div id="row3" class="row">
+        <div class="col-xs-12 col-lg-12">
+            <input id="imagesrc${fieldName}" name="${fieldName}" type="hidden" value=""/>
+            <button id="deleteButton${fieldName}" class="btn btn-default" onClick="deleteImage('${fieldName}')" type="button" title="#i18n{uploadimage.model.delete.button}"
+                    style="display:none">
+                <span class="glyphicon glyphicon-remove-circle"></span>
+                #i18n{uploadimage.model.delete.button}
+            </button>
+            <div style="max-width: 5px;" id="canvasImage${fieldName}"></div>
+        </div>
+    </div>
+
 </div>
 
 <!-- Alert -->
