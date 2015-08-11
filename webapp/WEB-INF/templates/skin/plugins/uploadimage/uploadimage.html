@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="css/plugins/uploadimage/cropper.css"/>
 <script type="text/javascript" src="js/plugins/uploadimage/cropper.js"></script>
 </#macro>
-<#macro cropimage fieldName file cssClass synchronous supprimer=false >
+<#macro cropimage fieldName file cssClass synchronous supprimer=false typeImage="image/*" >
 
 
 <!-- Content -->
@@ -13,7 +13,7 @@
 
             <!-- Bouton upload -->
             <label id="label${fieldName}" class="btn btn-primary btn-upload " for="inputImage${fieldName}" title="#i18n{uploadimage.model.title.upload}" <#if file !="" > style="display: none" </#if> >
-                <input class="sr-only" id="inputImage${fieldName}" name="file" type="file" accept="image/*">
+                <input class="sr-only" id="inputImage${fieldName}" name="file" type="file" accept=${typeImage}>
                 <span class="docs-tooltip" data-toggle="tooltip" title="#i18n{uploadimage.model.title.upload.tooltip}">
                     <span class="icon icon-upload"></span>
                     #i18n{uploadimage.model.upload.button}
@@ -86,7 +86,7 @@
 
                     <!-- Bouton upload -->
                     <label id="upload" class="btn btn-primary btn-upload" for="inputImage${fieldName}" title="#i18n{uploadimage.model.title.upload}">
-                        <input class="sr-only" id="inputImage${fieldName}" name="file" type="file" accept="image/*">
+                        <input class="sr-only" id="inputImage${fieldName}" name="file" type="file" accept=${typeImage}>
                             <span class="docs-tooltip" data-toggle="tooltip" title="#i18n{uploadimage.model.title.upload.tooltip}">
                               <span class="icon icon-upload"></span>
                                 #i18n{uploadimage.model.upload.button}
