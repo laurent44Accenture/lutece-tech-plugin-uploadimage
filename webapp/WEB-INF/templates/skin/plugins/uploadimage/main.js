@@ -223,7 +223,6 @@ $(function () {
         if (files && files.length) {
           file = files[0];
 
-          $('#typeImage').val(file.type);
 
           if (/^image\/\w+$/.test(file.type)) {
             blobURL = URL.createObjectURL(file);
