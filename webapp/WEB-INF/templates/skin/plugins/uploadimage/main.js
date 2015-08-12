@@ -110,7 +110,7 @@ $(function () {
 
           $inputImage.change(function () {
 
-              $('#label${fieldName}').hide();
+              $('#initUpload').hide();
               $('#buttonOption${fieldName}').show();
               $('#img_div').show();
 
@@ -202,12 +202,15 @@ function resetBox(fieldName) {
 
 function getCroppedCanva(fieldName){
 
-	var $element= $('.img-container'+fieldName+' > img');
-
-	result = $element.cropper('getCroppedCanvas', paramaters${fieldName});
-	$('#imagesrc'+fieldName).val(result.toDataURL());
-	$('#canvasImage'+fieldName).html(result);
-	$('#deleteButton'+fieldName).show();
+    var src = $('.cropper-view-box').find("img").attr('src');
+    if(src.match("^blob")){
+        console.log('test');
+        var $element= $('.img-container'+fieldName+' > img');
+        result = $element.cropper('getCroppedCanvas', paramaters${fieldName});
+        $('#imagesrc'+fieldName).val(result.toDataURL());
+        $('#canvasImage'+fieldName).html(result);
+        $('#deleteButton'+fieldName).show();
+    }
 }
 
 function deleteImage(fieldName) {
@@ -216,17 +219,17 @@ function deleteImage(fieldName) {
     $('#deleteButton' + fieldName).hide();
 }
 
-function supprimerImage(fieldName) {
+function supprimerImage(fieldName, file) {
 
     $('#img_div').hide();
     $('#buttonOption' + fieldName).hide();
-    $('#label' + fieldName).show()
+    $('#deleteButton' + fieldName).hide();
+    $('#initUpload').show()
 
     // Reset des champs
+    $('#canvasImage' + fieldName).html('');
     $('.cropper-canvas').find("img").attr("src", '');
     $('.cropper-view-box').find("img").attr("src", '');
     $('#img_file').attr("src", '');
-    $('#canvasImage' + fieldName).html('');
-    $('#imagesrc' + fieldName).val();
 
 }

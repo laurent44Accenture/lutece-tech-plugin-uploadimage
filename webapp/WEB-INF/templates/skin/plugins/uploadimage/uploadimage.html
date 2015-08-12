@@ -3,24 +3,35 @@
 <link rel="stylesheet" href="css/plugins/uploadimage/cropper.css"/>
 <script type="text/javascript" src="js/plugins/uploadimage/cropper.js"></script>
 </#macro>
-<#macro cropimage fieldName file cssClass synchronous supprimer=false typeImage="image/*" cssBootsrap="col-xs-12 col-lg-12" tooltipAide="" >
 
+<#macro boutonUpload id fieldName typeImage tooltipAide >
+
+    <label id="${id}" class="btn btn-primary btn-upload " for="inputImage${fieldName}" title="#i18n{uploadimage.model.title.upload}">
+        <input class="sr-only" id="inputImage${fieldName}" name="file" type="file" accept=${typeImage}>
+            <span class="docs-tooltip" data-toggle="tooltip" title="#i18n{uploadimage.model.title.upload.tooltip}">
+                <span class="icon icon-upload"></span>
+                #i18n{uploadimage.model.upload.button}
+            </span>
+    </label>
+    <#if tooltipAide != "">
+    <span id="tooltip_photo" class="aide-photo hidden glyphicon glyphicon-question-sign" data-toggle="tooltip" data-original-title="">${tooltipAide}</span>
+    </#if>
+
+</#macro>
+
+<#macro cropimage fieldName file cssClass synchronous supprimer=false typeImage="image/*" cssBootsrap="col-xs-12 col-lg-12" tooltipAide="" >
 
 <!-- Content -->
 <div id="content_upload_image">
 
-    <!-- image ou bouton upload -->
+    <!-- Image ou bouton upload -->
     <div id="row1" class="row">
         <div class="${cssBootsrap}">
 
             <!-- Bouton upload -->
-            <label id="label${fieldName}" class="btn btn-primary btn-upload " for="inputImage${fieldName}" title="#i18n{uploadimage.model.title.upload}" <#if file !="" > style="display: none" </#if> >
-                <input class="sr-only" id="inputImage${fieldName}" name="file" type="file" accept=${typeImage}>
-                <span class="docs-tooltip" data-toggle="tooltip" title="#i18n{uploadimage.model.title.upload.tooltip}">
-                    <span class="icon icon-upload"></span>
-                    #i18n{uploadimage.model.upload.button}
-                </span>
-            </label>
+            <div id="initUpload"  <#if file !="" > style="display: none" </#if> >
+                <@boutonUpload 'label' fieldName typeImage tooltipAide />
+            </div>
 
             <!-- Image affichée  -->
             <div id="img_div" class="img-container${fieldName} ${cssClass!}">
@@ -81,7 +92,7 @@
 
                     <#if supprimer >
                         <!-- Bouton supprimer -->
-                        <button id="supprimer" class="btn btn-primary btn-supprimer" onclick="supprimerImage('${fieldName}');" type="button" title="#i18n{uploadimage.model.title.supprimer}">
+                        <button id="supprimer" class="btn btn-primary btn-supprimer" onclick="supprimerImage('${fieldName}','${file}');" type="button" title="#i18n{uploadimage.model.title.supprimer}">
                             <span class="docs-tooltip" data-toggle="tooltip" data-placement="top" title="#i18n{uploadimage.model.title.supprimer.tooltip}">
                             <span class="icon icon-remove"></span>
                                 #i18n{uploadimage.model.title.supprimer}
@@ -90,16 +101,7 @@
                     </#if>
 
                     <!-- Bouton upload -->
-                    <label id="upload" class="btn btn-primary btn-upload" for="inputImage${fieldName}" title="#i18n{uploadimage.model.title.upload}">
-                        <input class="sr-only" id="inputImage${fieldName}" name="file" type="file" accept=${typeImage}>
-                            <span class="docs-tooltip" data-toggle="tooltip" data-placement="top" title="#i18n{uploadimage.model.title.upload.tooltip}">
-                              <span class="icon icon-upload"></span>
-                                #i18n{uploadimage.model.upload.button}
-                            </span>
-                    </label>
-                    <#if tooltipAide != "">
-                        <span id="tooltip_photo" class="aide-photo hidden glyphicon glyphicon-question-sign" data-toggle="tooltip" data-original-title="">${tooltipAide}</span>
-                    </#if>
+                    <@boutonUpload 'upload' fieldName typeImage tooltipAide />
 
                 </div>
 
@@ -161,7 +163,9 @@
 
     });
 
-
 </script>
 
 </#macro>
+
+
+
