@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="css/plugins/uploadimage/cropper.css"/>
 <script type="text/javascript" src="js/plugins/uploadimage/cropper.js"></script>
 </#macro>
-<#macro cropimage fieldName file cssClass synchronous supprimer=false typeImage="image/*" cssBootsrap="col-xs-12 col-lg-12" >
+<#macro cropimage fieldName file cssClass synchronous supprimer=false typeImage="image/*" cssBootsrap="col-xs-12 col-lg-12" tooltipAide="" >
 
 
 <!-- Content -->
@@ -82,7 +82,7 @@
                     <#if supprimer >
                         <!-- Bouton supprimer -->
                         <button id="supprimer" class="btn btn-primary btn-supprimer" onclick="supprimerImage('${fieldName}');" type="button" title="#i18n{uploadimage.model.title.supprimer}">
-                            <span class="docs-tooltip" data-toggle="tooltip" title="#i18n{uploadimage.model.title.supprimer.tooltip}">
+                            <span class="docs-tooltip" data-toggle="tooltip" data-placement="top" title="#i18n{uploadimage.model.title.supprimer.tooltip}">
                             <span class="icon icon-remove"></span>
                                 #i18n{uploadimage.model.title.supprimer}
                             </span>
@@ -92,17 +92,20 @@
                     <!-- Bouton upload -->
                     <label id="upload" class="btn btn-primary btn-upload" for="inputImage${fieldName}" title="#i18n{uploadimage.model.title.upload}">
                         <input class="sr-only" id="inputImage${fieldName}" name="file" type="file" accept=${typeImage}>
-                            <span class="docs-tooltip" data-toggle="tooltip" title="#i18n{uploadimage.model.title.upload.tooltip}">
+                            <span class="docs-tooltip" data-toggle="tooltip" data-placement="top" title="#i18n{uploadimage.model.title.upload.tooltip}">
                               <span class="icon icon-upload"></span>
                                 #i18n{uploadimage.model.upload.button}
                             </span>
                     </label>
+                    <#if tooltipAide != "">
+                        <span id="tooltip_photo" class="aide-photo hidden glyphicon glyphicon-question-sign" data-toggle="tooltip" data-original-title="">${tooltipAide}</span>
+                    </#if>
 
                 </div>
 
                 <div id="crp_canvas" class="btn-group">
                     <button id="crp_button_canvas" class="btn btn-primary" onClick="getCroppedCanva('${fieldName}')" type="button">
-                            <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper${fieldName}(&quot;getCroppedCanvas&quot;)">
+                            <span class="docs-tooltip" data-toggle="tooltip" data-placement="top" title="$().cropper${fieldName}(&quot;getCroppedCanvas&quot;)">
                               #i18n{uploadimage.model.get.cropped.canvas}
                             </span>
                     </button>
@@ -140,9 +143,25 @@
             $('#imagesrc${fieldName}').val("${file}");
             $('#canvasImage${fieldName}').html('<img id="img${fieldName}" width="320" height="180" src="${file}" />');
             $('#deleteButton${fieldName}').show();
-        }
-        ;
+        };
+
+        $('[data-toggle="tooltip"]').tooltip(
+            {
+                html: true,
+                animation: true
+            }
+        );
+
+        $('.aide-photo').each(function (index, value) {
+            $(this).removeClass("hidden");
+            $(this).html().replace('"', '\"');
+            $(this).attr('data-original-title', $(this).html());
+            $(this).html("");
+        });
+
     });
+
+
 </script>
 
 </#macro>

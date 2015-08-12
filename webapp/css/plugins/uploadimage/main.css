@@ -331,4 +331,12 @@ body {
   left: 0px; 
   top: 149.063px;
   
-}  
+}
+
+.hidden {
+  display: none;
+}
+
+.aide-photo {
+  padding-left: 5px;
+}
