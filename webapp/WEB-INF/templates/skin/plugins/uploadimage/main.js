@@ -145,19 +145,20 @@ $(function () {
           $inputImage.parent().remove();
       }
 
-      //hide button
-      if (!options.rotatable) {
-          $('#rotate_right').hide();
-          $('#rotate_left').hide();
+      $('#content_upload_image').show();
+      //show buttons
+      if (options.rotatable) {
+          $('#rotate_right').show();
+          $('#rotate_left').show();
       }
 
-      if (!options.zoomable) {
-          $('#zoom_in').hide();
-          $('#zoom_out').hide();
+      if (options.zoomable) {
+          $('#zoom_in').show();
+          $('#zoom_out').show();
       }
 
-      if (!options.movable) {
-          $('#move').hide();
+      if (options.movable) {
+          $('#move').show();
       }
 
   }());
