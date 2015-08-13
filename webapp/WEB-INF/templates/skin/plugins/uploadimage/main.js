@@ -135,7 +135,7 @@ $(function () {
 
                       $inputImage.val('');
                   } else {
-                      showMessage('Please choose an image file.');
+                      showMessage('${errorMsg}');
                   }
 
               }
