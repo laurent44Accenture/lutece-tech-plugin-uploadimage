@@ -126,8 +126,27 @@ $(function () {
 
                   $('#typeImage').val(file.type);
 
+
                   if (/^image\/\w+$/.test(file.type)) {
                       blobURL = URL.createObjectURL(file);
+
+                      // resize contenaire photo
+                      var img = new Image;
+                      img.src = blobURL;
+                      img.onload = function () {
+                          console.log(img.height);
+                          $('#img_div').height(function (index, height) {
+                              if (img.height > ${option.maxHeight}) {
+                                  return (${option.maxHeight});
+                              } else if (img.height < 100) {
+                                  return (100);
+                              }
+                              else {
+                                  return (img.height);
+                              }
+                          });
+                      };
+
                       $image.one('built.cropper', function () {
                           URL.revokeObjectURL(blobURL); // Revoke when load complete
 
@@ -205,7 +224,6 @@ function getCroppedCanva(fieldName){
 
     var src = $('.cropper-view-box').find("img").attr('src');
     if(src.match("^blob")){
-        console.log('test');
         var $element= $('.img-container'+fieldName+' > img');
         result = $element.cropper('getCroppedCanvas', paramaters${fieldName});
         $('#imagesrc'+fieldName).val(result.toDataURL());

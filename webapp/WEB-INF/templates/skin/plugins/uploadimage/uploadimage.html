@@ -29,13 +29,17 @@
         <div class="${cssBootsrap}">
 
             <!-- Bouton upload -->
-            <div id="initUpload"  <#if file !="" > style="display: none" </#if> >
+            <div id="initUpload" class="col-xs-12 col-lg-12"  <#if file !="" > style="display: none" </#if> >
                 <@boutonUpload 'label' fieldName typeImage tooltipAide />
             </div>
 
-            <!-- Image affichée  -->
-            <div id="img_div" class="img-container${fieldName} ${cssClass!}">
-                <image id="img_file" src="${file!}" alt="">
+            <div class="row">
+                <div class="${cssBootsrap!}">
+                    <!-- Image affichée  -->
+                    <div id="img_div" class="img-div img-container${fieldName}">
+                        <image id="img_file" src="${file!}" alt="">
+                    </div>
+                </div>
             </div>
             <!-- Type de l'Image   -->
             <input type="hidden" id="typeImage" name="typeImage">
