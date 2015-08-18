@@ -238,15 +238,17 @@ function deleteImage(fieldName) {
 
 function supprimerImage(fieldName, file) {
 
-    $('#img_div').hide();
-    $('#buttonOption' + fieldName).hide();
-    $('#deleteButton' + fieldName).hide();
-    $('#initUpload').show()
-
     // Reset des champs
     $('#canvasImage' + fieldName).html('');
     $('.cropper-canvas').find("img").attr("src", '');
     $('.cropper-view-box').find("img").attr("src", '');
     $('#img_file').attr("src", '');
+
+    $('#img_div').hide();
+    $('#buttonOption' + fieldName).hide();
+    $('#deleteButton' + fieldName).hide();
+    $('#initUpload').show()
+
+
 
 }
