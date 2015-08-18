@@ -133,24 +133,27 @@ $(function () {
                       // resize contenaire photo
                       var img = new Image;
                       img.src = blobURL;
+
                       img.onload = function () {
-                          console.log(img.height);
+                          var divHeight;
                           $('#img_div').height(function (index, height) {
                               if (img.height > ${option.maxHeight}) {
-                                  return (${option.maxHeight});
+                                  divHeight = (${option.maxHeight});
                               } else if (img.height < 100) {
-                                  return (100);
+                                  divHeight = 100;
                               }
                               else {
-                                  return (img.height);
+                                  divHeight = img.height;
                               }
+
+                              $image.one('built.cropper', function () {
+                                  URL.revokeObjectURL(blobURL); // Revoke when load complete
+
+                              }).cropper('reset').cropper('load', blobURL);
+
+                              return divHeight;
                           });
                       };
-
-                      $image.one('built.cropper', function () {
-                          URL.revokeObjectURL(blobURL); // Revoke when load complete
-
-                      }).cropper('reset').cropper('load', blobURL);
 
                       $inputImage.val('');
                   } else {
