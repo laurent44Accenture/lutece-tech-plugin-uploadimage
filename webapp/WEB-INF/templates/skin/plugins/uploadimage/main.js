@@ -109,7 +109,6 @@ $(function () {
       if (URL) {
 
           $inputImage.change(function () {
-
               $('#initUpload').hide();
               $('#buttonOption${fieldName}').show();
               $('#img_div').show();
@@ -224,15 +223,11 @@ function resetBox(fieldName) {
 }
 
 function getCroppedCanva(fieldName){
-
-    var src = $('.cropper-view-box').find("img").attr('src');
-    if(src.match("^blob")){
-        var $element= $('.img-container'+fieldName+' > img');
-        result = $element.cropper('getCroppedCanvas', paramaters${fieldName});
-        $('#imagesrc'+fieldName).val(result.toDataURL());
-        $('#canvasImage'+fieldName).html(result);
-        $('#deleteButton'+fieldName).show();
-    }
+    var $element= $('.img-container'+fieldName+' > img');
+    result = $element.cropper('getCroppedCanvas', paramaters${fieldName});
+    $('#imagesrc'+fieldName).val(result.toDataURL());
+    $('#canvasImage'+fieldName).html(result);
+    $('#deleteButton'+fieldName).show();
 }
 
 function deleteImage(fieldName) {
