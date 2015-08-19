@@ -1,4 +1,5 @@
 var paramaters${fieldName} = { width: ${option.width}, height: ${option.height} };
+var imgSupprimer = false;
 
 $(function () {
 
@@ -150,6 +151,7 @@ $(function () {
 
                               }).cropper('reset').cropper('load', blobURL);
 
+                              imgSupprimer = false;
                               return divHeight;
                           });
                       };
@@ -223,11 +225,15 @@ function resetBox(fieldName) {
 }
 
 function getCroppedCanva(fieldName){
-    var $element= $('.img-container'+fieldName+' > img');
-    result = $element.cropper('getCroppedCanvas', paramaters${fieldName});
-    $('#imagesrc'+fieldName).val(result.toDataURL());
-    $('#canvasImage'+fieldName).html(result);
-    $('#deleteButton'+fieldName).show();
+
+    if(!imgSupprimer){
+        var $element= $('.img-container'+fieldName+' > img');
+        result = $element.cropper('getCroppedCanvas', paramaters${fieldName});
+        console.log(result.toDataURL());
+        $('#imagesrc'+fieldName).val(result.toDataURL());
+        $('#canvasImage'+fieldName).html(result);
+        $('#deleteButton'+fieldName).show();
+    }
 }
 
 function deleteImage(fieldName) {
@@ -236,17 +242,16 @@ function deleteImage(fieldName) {
     $('#deleteButton' + fieldName).hide();
 }
 
-function supprimerImage(fieldName, file) {
+function supprimerImage(fieldName) {
+
+    imgSupprimer = true;
 
     // Reset des champs
-    $('#img_file').attr("src", '');
-    $('.cropper-canvas').find("img").attr("src", '');
-    $('.cropper-view-box').find("img").attr("src", '');
-    $('#canvasImage' + fieldName).html('');
+    $('#imagesrc' + fieldName).val('');
 
     $('#buttonOption' + fieldName).hide();
     $('#deleteButton' + fieldName).hide();
     $('#img_div').hide();
     $('#initUpload').show()
-
 }
+
