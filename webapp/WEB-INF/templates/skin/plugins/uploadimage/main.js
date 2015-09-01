@@ -157,6 +157,9 @@ $(function () {
                       };
 
                       $inputImage.val('');
+                      
+                      $("#imgChange").val("true");
+                      
                   } else {
                       showMessage('${errorMsg}');
                   }
